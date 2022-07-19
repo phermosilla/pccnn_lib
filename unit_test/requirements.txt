@@ -1,0 +1,4 @@
+colorama
+sklearn
+configparser
+argparse
