@@ -2,9 +2,9 @@ import math
 import torch
 import pccnn_lib
 from pccnn_lib.op_wrappers import ComputeMCConv, ComputeMCConvWeightVar
-from .ILayer import ILayer, ILayerFactory
+from .IConvLayer import IConvLayer, IConvLayerFactory
 
-class MCConv(ILayer):
+class MCConv(IConvLayer):
     """Class to implement a monte carlo convolution.
     """
 
@@ -109,22 +109,12 @@ class MCConv(ILayer):
             stdv = math.sqrt(self.out_constant_variance_/self.accum_weight_var_)
             self.conv_weights_.data.normal_(0.0, stdv)
 
-            #self.conv_weights_.data.normal_(0.0, 1.0)
-            #conv_res = ComputeMCConv.apply(
-            #    p_pc_in.pts_, cur_pdf, p_in_features, p_pc_out.pts_,
-            #    p_neighborhood.neighbors_, p_neighborhood.start_ids_, p_radius,
-            #    self.proj_axis_, self.proj_bias_, self.conv_weights_)
-            #var = torch.var(conv_res).item()
-            #self.conv_weights_.data.normal_(0.0, math.sqrt(1.0/var))
-
         # Compute convolution.
         conv_res = ComputeMCConv.apply(
             p_pc_in.pts_, cur_pdf, p_in_features, p_pc_out.pts_,
             p_neighborhood.neighbors_, p_neighborhood.start_ids_, p_radius,
             self.proj_axis_, self.proj_bias_, self.conv_weights_)
 
-        #if self.wamup_state_ and self.use_const_variance_init_:
-        #    print(variance.item(), self.accum_weight_var_, torch.var(p_in_features).item(), torch.var(conv_res).item())
         return conv_res
 
 
@@ -151,7 +141,7 @@ class MCConv(ILayer):
 
 
 
-class MCConvFactory(ILayerFactory):
+class MCConvFactory(IConvLayerFactory):
     """Interface of a layer actory.
     """
 
@@ -181,7 +171,7 @@ class MCConvFactory(ILayerFactory):
             p_dims (int): Number of dimensions.
             p_in_features (int): Number of input features.
             p_out_features (int): Number of output features.
-        Return ILayer object.
+        Return IConvLayer object.
         """
         cur_conv = MCConv(p_dims, p_in_features, p_out_features, 
             self.num_basis_, self.num_mlps_, self.conv_var_w_init_, 

@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-import pcconv
+import pccnn_lib
 import math 
 
 class IModel:
@@ -21,5 +21,5 @@ class IModel:
         cur_var = p_divisor * self.conv_list_[p_conv_id].feat_input_size_
         stdv = math.sqrt(self.conv_list_[p_conv_id].out_constant_variance_/cur_var)
         self.conv_list_[p_conv_id].conv_weights_.data.normal_(0.0, stdv)
-        if isinstance(self.conv_list_[p_conv_id], pcconv.pc.layers.PointConv):
+        if isinstance(self.conv_list_[p_conv_id], pccnn_lib.pc.layers.PointConv):
             self.conv_list_[p_conv_id].init_proj_axis_ = True

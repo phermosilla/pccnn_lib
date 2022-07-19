@@ -6,9 +6,9 @@ import pccnn_lib
 from pccnn_lib.op_wrappers import ComputeKPConv, ComputeKPConvWeightVar
 from pccnn_lib.pc.layers.kernel_points.kernel_points import kernel_pts_dict
 from pccnn_lib.py_utils.pc_utils import rotate_pc_3d
-from .ILayer import ILayer, ILayerFactory
+from .IConvLayer import IConvLayer, IConvLayerFactory
 
-class KPConv(ILayer):
+class KPConv(IConvLayer):
     """Class to implement a KPConv.
     """
 
@@ -147,7 +147,7 @@ class KPConv(ILayer):
 
 
 
-class KPConvFactory(ILayerFactory):
+class KPConvFactory(IConvLayerFactory):
     """Interface of a layer actory.
     """
 
@@ -173,7 +173,7 @@ class KPConvFactory(ILayerFactory):
             p_dims (int): Number of dimensions.
             p_in_features (int): Number of input features.
             p_out_features (int): Number of output features.
-        Return ILayer object.
+        Return IConvLayer object.
         """
         cur_conv = KPConv(p_dims, p_in_features, p_out_features, 
             self.num_basis_, self.conv_var_w_init_, 

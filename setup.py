@@ -36,10 +36,8 @@ setup(
             'pccnn_lib.op_wrappers',
             'pccnn_lib.pc', 
             'pccnn_lib.pc.layers', 
-            'pccnn_lib.pc.layers.norm_layers', 
             'pccnn_lib.pc.layers.kernel_points', 
-            'pccnn_lib.pc.models', 
-            'pccnn_lib.pc.blocks',
+            'pccnn_lib.pc.models',
             'pccnn_lib.py_utils'],
     package_data={'pccnn_lib_ops': ['*.so']}
 )

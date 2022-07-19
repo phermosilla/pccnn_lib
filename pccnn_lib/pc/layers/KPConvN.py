@@ -6,9 +6,9 @@ import pccnn_lib
 from pccnn_lib.op_wrappers import ComputeKPConvN, ComputeKPConvNWeightVar
 from pccnn_lib.pc.layers.kernel_points.kernel_points import kernel_pts_dict
 from pccnn_lib.py_utils.pc_utils import rotate_pc_3d
-from .ILayer import ILayer, ILayerFactory
+from .IConvLayer import IConvLayer, IConvLayerFactory
 
-class KPConvN(ILayer):
+class KPConvN(IConvLayer):
     """Class to implement a KPConvN.
     """
 
@@ -150,7 +150,7 @@ class KPConvN(ILayer):
 
 
 
-class KPConvNFactory(ILayerFactory):
+class KPConvNFactory(IConvLayerFactory):
     """Interface of a layer actory.
     """
 
@@ -176,7 +176,7 @@ class KPConvNFactory(ILayerFactory):
             p_dims (int): Number of dimensions.
             p_in_features (int): Number of input features.
             p_out_features (int): Number of output features.
-        Return ILayer object.
+        Return IConvLayer object.
         """
         cur_conv = KPConvN(p_dims, p_in_features, p_out_features, 
             self.num_basis_, self.conv_var_w_init_, 

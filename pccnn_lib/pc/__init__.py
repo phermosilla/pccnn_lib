@@ -4,3 +4,4 @@ from .Grid import Grid
 from .Neighborhood import Neighborhood
 from .PointPooling import PointPooling
 from .layers import *
+from .models import *

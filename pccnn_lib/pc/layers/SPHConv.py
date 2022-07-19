@@ -4,9 +4,9 @@ import numpy as np
 import torch
 import pccnn_lib
 from pccnn_lib.op_wrappers import ComputeSPHConv, ComputeSPHConvWeightVar
-from .ILayer import ILayer, ILayerFactory
+from .IConvLayer import IConvLayer, IConvLayerFactory
 
-class SPHConv(ILayer):
+class SPHConv(IConvLayer):
     """Class to implement a SPHConv.
     """
 
@@ -153,7 +153,7 @@ class SPHConv(ILayer):
 
 
 
-class SPHConvFactory(ILayerFactory):
+class SPHConvFactory(IConvLayerFactory):
     """Interface of a layer actory.
     """
 
@@ -186,7 +186,7 @@ class SPHConvFactory(ILayerFactory):
             p_dims (int): Number of dimensions.
             p_in_features (int): Number of input features.
             p_out_features (int): Number of output features.
-        Return ILayer object.
+        Return IConvLayer object.
         """
         cur_conv = SPHConv(
             p_dims, p_in_features, p_out_features, 

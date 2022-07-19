@@ -4,7 +4,7 @@ import torch
 import pccnn_lib
 
 
-class ILayer(torch.nn.Module, ABC):
+class IConvLayer(torch.nn.Module, ABC):
     """Interface of layer for a point convolution.
     """
 
@@ -28,7 +28,7 @@ class ILayer(torch.nn.Module, ABC):
         """
 
         # Super class init.
-        super(ILayer, self).__init__()
+        super(IConvLayer, self).__init__()
 
         # Save params.
         self.num_dims_ = p_dims
@@ -157,7 +157,7 @@ class ILayer(torch.nn.Module, ABC):
             return out_features
 
 
-class ILayerFactory(ABC):
+class IConvLayerFactory(ABC):
     """Interface of a layer actory.
     """
 
@@ -169,7 +169,7 @@ class ILayerFactory(ABC):
         """
 
         # Super class init.
-        super(ILayerFactory, self).__init__()
+        super(IConvLayerFactory, self).__init__()
 
         # Save parameters.
         self.num_basis_ = p_num_basis
@@ -211,6 +211,6 @@ class ILayerFactory(ABC):
             p_dims (int): Number of dimensions.
             p_in_features (int): Number of input features.
             p_out_features (int): Number of output features.
-        Return ILayer object.
+        Return IConvLayer object.
         """
         pass

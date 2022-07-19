@@ -2,10 +2,10 @@ import math
 import torch
 import pccnn_lib
 from pccnn_lib.op_wrappers import ComputePointConvBasis, ComputePointConv, ComputePointConvWeightVar
-from .ILayer import ILayer, ILayerFactory
+from .IConvLayer import IConvLayer, IConvLayerFactory
 from torch_scatter import scatter_max
 
-class PointConv(ILayer):
+class PointConv(IConvLayer):
     """Class to implement a PointConv convolution.
     """
 
@@ -78,7 +78,7 @@ class PointConv(ILayer):
         if self.use_bn_:
             self.basis_bn_ = torch.nn.BatchNorm1d(p_hidden_size)
         elif self.use_gn_:
-            self.basis_gn_ = pccnn_lib.layers.norm_layers.GroupNormalization(p_hidden_size, self.gn_size_)
+            self.basis_gn_ = pccnn_lib.layers.GroupNormalization(p_hidden_size, self.gn_size_)
 
         # Reset parameters.
         self.reset_parameters()
@@ -204,7 +204,7 @@ class PointConv(ILayer):
 
 
 
-class PointConvFactory(ILayerFactory):
+class PointConvFactory(IConvLayerFactory):
     """Interface of a layer actory.
     """
 
@@ -236,7 +236,7 @@ class PointConvFactory(ILayerFactory):
             p_dims (int): Number of dimensions.
             p_in_features (int): Number of input features.
             p_out_features (int): Number of output features.
-        Return ILayer object.
+        Return IConvLayer object.
         """
         cur_conv = PointConv(p_dims, p_in_features, p_out_features, 
             self.num_basis_, self.conv_var_w_init_, self.const_var_value_,
