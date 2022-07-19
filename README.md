@@ -1,4 +1,4 @@
-### Variance-Aware Weight Initialization for Point Convolutional Neural Networks
+### Point convolutional neural networks library in pytorch
 
 ### Citation
 
